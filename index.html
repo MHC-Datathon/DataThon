@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC Bus Violations & Congestion Pricing Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
+        <canvas id="particleCanvas"></canvas>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="cyber-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-bus"></i>
+                    <div class="pulse-ring"></div>
+                </div>
+                <span class="logo-text">DataThon</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#background" class="nav-link" data-text="BACKGROUND">BACKGROUND</a>
+                <a href="#questions" class="nav-link" data-text="QUESTIONS">QUESTIONS</a>
+                <a href="#violations" class="nav-link" data-text="VIOLATIONS">VIOLATIONS</a>
+                <a href="#ridership" class="nav-link" data-text="RIDERSHIP">RIDERSHIP</a>
+                <a href="#speed" class="nav-link" data-text="SPEED">SPEED</a>
+                <a href="#findings" class="nav-link" data-text="FINDINGS">FINDINGS</a>
+            </div>
+            
+            <div class="nav-controls">
+                <button class="cyber-btn" id="themeToggle">
+                    <span class="btn-text">THEME</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-text">DATA ANALYSIS</span>
+                    <div class="badge-glow"></div>
+                </div>
+                
+                <h1 class="hero-title">
+                    <span class="title-main">NYC BUS</span>
+                    <span class="title-accent">VIOLATIONS</span>
+                    <span class="title-sub">& CONGESTION PRICING</span>
+                </h1>
+                
+                <p class="hero-description">
+                    How have violations along bus routes changed and shaped NYC Buses alongside congestion pricing?
+                    A cutting-edge analysis of Manhattan's Central Business District.
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" data-target="52.42">0</div>
+                        <div class="stat-label">Avg. Violation Decrease%</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" data-target="85">0</div>
+                        <div class="stat-label">Ridership Increase %</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" data-target="4">0</div>
+                        <div class="stat-label">ACE Routes Analyzed</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="data-sphere">
+                    <div class="sphere-core"></div>
+                    <div class="data-point point-1"></div>
+                    <div class="data-point point-2"></div>
+                    <div class="data-point point-3"></div>
+                    <div class="data-arc arc-1"></div>
+                    <div class="data-arc arc-2"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+            <span>SCROLL TO EXPLORE</span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Background Section -->
+        <section id="background" class="content-section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <h2>BACKGROUND INFORMATION</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="timeline-container">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h3>PRE-CONGESTION PRICING</h3>
+                            <p>Before congestion pricing, MCBD had 4 bus routes with Automated Camera Enforcement (ACE) implemented by June 20, 2024.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h3>POST-CONGESTION PRICING</h3>
+                            <p>After congestion pricing, an additional 3 bus routes in MCBD were implemented with ACE technology.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h3>FOCUS ROUTES</h3>
+                            <p>This project focuses on 4 bus routes with ACE tech in MCBD: M14+, M15+, M23+, and M34+.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="background-explanation">
+              <div class="explanation-block">
+                <div class="text-content">
+                  <h2>Area of focus: Manhattan Central Business District</h2>
+                  <p><strong>Note:</strong> The Manhattan Central Business District (MCBD) is defined by the NYC Department of Transportation as the area south of 60th Street...</p>
+                </div>
+                <img src="img/mcbd_map.png" alt="Manhattan Central Business District Map" class="mcbd-map">
+              </div>
+
+              <div class="explanation-block">
+                <div class="text-content">
+                  <h3>How will we query data specifically here?</h3>
+                  <p><strong>Answer:</strong> We created a polygon mapped by real-world coordinates...</p>
+                  <h3>Code for polygon</h3>
+                  <p>You can create your own polygon for mapping here:</p>
+                  <a href="https://geojson.io/" target="_blank" class="external-link">https://geojson.io/</a>
+                </div>
+                <img src="img/polygon_code.png" alt="Polygon Code Snippet" class="code-img">
+              </div>
+            </div>
+
+        </section>
+
+         <!-- Questions to answer section -->
+        <section id="questions" class="content-section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h2>KEY QUESTIONS</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="questions-container">
+                <div class="question-card">
+                    <div class="question-icon">
+                        <i class="fas fa-bus"></i>
+                    </div>
+                    <h3>How have the violations along the Manhattan Central Business District, changed alongside congestion pricing? </h3>
+                </div>
+                <div class="question-card">
+                    <div class="question-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Have we also witnessed a change alongside ridership?</h3>
+                </div>
+                <div class="question-card">
+                    <div class="question-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>What impact has congestion pricing had on bus speeds?</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Violations Section -->
+        <section id="violations" class="content-section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h2>VIOLATION DENSITY MAPS</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="density-container">                
+              <div class="density-content">
+                <div class="density-year active" id="density-lower">
+                  <div class="density-images">
+                    <div class="density-image-container overlay-label">
+                      <img src="img/density1.png" alt="Violation Density Map Part 1 - 2024" class="density-img">
+                      <span class="density-label">2024 (Pre-Congestion)</span>
+                    </div>
+                    <div class="density-image-container overlay-label">
+                      <img src="img/density2.png" alt="Violation Density Map Part 2 - 2024" class="density-img">
+                      <span class="density-label">2025 (Post-Congestion)</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="density-year" id="density-upper">
+                  <div class="density-images">
+                    <div class="density-image-container overlay-label">
+                      <img src="img/density3.png" alt="Violation Density Map Part 1 - 2025" class="density-img">
+                      <span class="density-label">2024 (Pre-Congestion)</span>
+                    </div>
+                    <div class="density-image-container overlay-label">
+                      <img src="img/density4.png" alt="Violation Density Map Part 2 - 2025" class="density-img">
+                      <span class="density-label">2025 (Post-Congestion)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="density-explanation">
+                <p><strong>Description: </strong>As you can see, in the 2024 heat maps, there are more dense clusters than in the 2025 heat maps. This is consistent with the general amount of violations we found from both years in the MCBD, which you can see below.</p>
+              </div>
+              <div class="code-for-densities">
+                <h3>Code for Density Maps</h3>
+                <img src="img/density_code.png" alt="Code for Density Maps" class="code-img">
+              </div>
+              
+            </div>
+            
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h2>VIOLATION TRENDS</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="comparison-container">
+                <div class="comparison-image">
+                    <img src="img/2024vs2025.png" alt="Violations Comparison 2024 vs 2025" class="comparison-img">
+                </div>
+                
+                <div class="comparison-details">
+                    <h3>Focusing on M14+, M15+, M23+, M34+ routes in CBD</h3>
+                    <p><strong>Important note:</strong> Data being compared is from <br>6/20/24 - 9/10/24 vs 6/20/25 - 9/10/25</p>
+                    <p>This comparison period was chosen because ACE was implemented in these routes on 6/20/24, and 2025 data is only available through 9/10/25.</p>
+                </div>
+            </div>
+            
+            <div class="violation-grid">
+                <div class="violation-card">
+                    <div class="route-header">
+                        <h3>M14+</h3>
+                        <div class="route-icon">M</div>
+                    </div>
+                    <div class="violation-chart">
+                        <div class="chart-bar pre" style="height: 100%"></div>
+                        <div class="chart-bar post" style="height: 57.1%"></div>
+                    </div>
+                    <div class="violation-stats">
+                        <span class="percentage decrease">-42.9%</span>
+                    </div>
+                </div>
+                
+                <div class="violation-card">
+                    <div class="route-header">
+                        <h3>M15+</h3>
+                        <div class="route-icon">M</div>
+                    </div>
+                    <div class="violation-chart">
+                        <div class="chart-bar pre" style="height: 100%"></div>
+                        <div class="chart-bar post" style="height: 43.26%"></div>
+                    </div>
+                    <div class="violation-stats">
+                        <span class="percentage decrease">-56.74%</span>
+                    </div>
+                </div>
+                
+                <div class="violation-card">
+                    <div class="route-header">
+                        <h3>M23+</h3>
+                        <div class="route-icon">M</div>
+                    </div>
+                    <div class="violation-chart">
+                        <div class="chart-bar pre" style="height: 100%"></div>
+                        <div class="chart-bar post" style="height: 50.7%"></div>
+                    </div>
+                    <div class="violation-stats">
+                        <span class="percentage decrease">-49.3%</span>
+                    </div>
+                </div>
+                
+                <div class="violation-card">
+                    <div class="route-header">
+                        <h3>M34+</h3>
+                        <div class="route-icon">M</div>
+                    </div>
+                    <div class="violation-chart">
+                        <div class="chart-bar pre" style="height: 100%"></div>
+                        <div class="chart-bar post" style="height: 39.25%"></div>
+                    </div>
+                    <div class="violation-stats">
+                        <span class="percentage decrease">-60.75%</span>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="summary-panel">
+                <div class="summary-content">
+                    <h3>OVERALL IMPACT</h3>
+                    <div class="summary-value">52.42%</div>
+                    <p>Average decrease in violations post congestion pricing</p>
+                </div>
+                <div class="summary-graph">
+                    <div class="radial-progress">
+                        <div class="progress-circle">
+                            <div class="progress-value">52%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="misc-violations-data">
+              <h2>Comparing violations by hour of the day</h2>
+              
+              <div class="violations-by-day">
+                <div class="image-wrapper">
+                  <img src="img/violations_day_pre.png" alt="Violations by Day Pre-Congestion" class="misc-violations-img">
+                  <h3 class="label">2024 (Pre-Congestion)</h3>
+                </div>
+                <div class="image-wrapper">
+                  <img src="img/violations_day_post.png" alt="Violations by Day Post-Congestion" class="misc-violations-img">
+                  <h3 class="label">2025 (Post-Congestion)</h3>
+                </div>
+              </div>
+              
+              <p><strong>Note:</strong> We notice that there has been a decrease in violations during rush hour post congestion pricing. This reflects well with the general decrease in overall violations.</p>
+            </div>
+
+            <div class="violations-type-distribution-section">
+              <h2>Distribution of Violation Types</h2>
+              
+              <div class="violations-type-distribution">
+                <div class="image-wrapper">
+                  <img src="img/violation_distr_2024.png" alt="Violation Distribution 2024" class="violations-distribution-img">
+                  <h3 class="label">2024 (Pre-Congestion)</h3>
+                </div>
+                <div class="image-wrapper">
+                  <img src="img/violation_distr_2025.png" alt="Violation Distribution 2025" class="violations-distribution-img">
+                  <h3 class="label">2025 (Post-Congestion)</h3>
+                </div>
+              </div>
+              
+              <p><strong>Description:</strong>We notice that majority of violations occur on mobile bus stops. Post congestion there was a decrease in violations along Mobile Bus Stops, and Mobile Double Parked.</p>
+            </div>
+
+        </section>
+
+        <!-- Ridership Section -->
+        <section id="ridership" class="content-section">
+    <div class="section-header">
+        <div class="section-icon">
+            <i class="fas fa-users"></i>
+        </div>
+        <h2>RIDERSHIP CHANGES</h2>
+        <div class="section-line"></div>
+    </div>
+
+    <div class="ridership-container">
+        <!-- Chart -->
+        <div class="ridership-chart">
+            <div class="chart-axis">
+                <div class="axis-label">3M</div>
+                <div class="axis-label">2M</div>
+                <div class="axis-label">1M</div>
+                <div class="axis-label">0</div>
+            </div>
+
+            <div class="chart-bars">
+                <!-- M15+ -->
+                <div class="bar-group">
+                    <div class="bar pre" style="--bar-height: 53.97%">
+                        <span class="bar-value">1.56M</span>
+                    </div>
+                    <div class="bar post" style="--bar-height: 100%">
+                        <span class="bar-value">2.89M</span>
+                    </div>
+                    <div class="bar-label">M15+</div>
+                </div>
+
+                <!-- M23+ -->
+                <div class="bar-group">
+                    <div class="bar pre" style="--bar-height: 18.16%">
+                        <span class="bar-value">525K</span>
+                    </div>
+                    <div class="bar post" style="--bar-height: 33.91%">
+                        <span class="bar-value">981K</span>
+                    </div>
+                    <div class="bar-label">M23+</div>
+                </div>
+
+                <!-- M34+ -->
+                <div class="bar-group">
+                    <div class="bar pre" style="--bar-height: 12.70%">
+                        <span class="bar-value">367K</span>
+                    </div>
+                    <div class="bar post" style="--bar-height: 23.18%">
+                        <span class="bar-value">670K</span>
+                    </div>
+                    <div class="bar-label">M34+</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="ridership-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-arrow-up"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value-bruh">85.2%</div>
+                    <div class="stat-label">M15+ Increase</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-arrow-up"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value-bruh"><span class="stat-text">87.0%</span></div>
+                    <div class="stat-label">M23+ Increase</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-arrow-up"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value-bruh">82.4%</div>
+                    <div class="stat-label">M34+ Increase</div>
+                </div>
+            </div>
+        </div>
+        <div class="explanation-ridership">
+            <p><strong>Note:</strong> M14+ ridership data is unavailable for 2024-2025, hence not included in this analysis.</p>
+            <p><strong>How we queried this:</strong> We filtered the transit_timestamp for 6/20/2024 to 9/10/2024 and 6/20/2025 to 9/10/2025, focusing only on the selected bus lines.</p>
+        </div>
+    </div>
+</section>
+
+
+        <!-- Speed Section -->
+        <section id="speed" class="content-section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <h2>BUS SPEED ANALYSIS</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="speed-charts">
+                <div class="speed-meter">
+                  <img src="img/speed1.png" alt="Limited Bus Speeds" class="speed-img">
+                  <img src="img/speed2.png" alt="Local Bus Speeds" class="speed-img">
+                  <img src="img/speed3.png" alt="SBS Speeds" class="speed-img">
+                </div>
+                
+                <div class="speed-details">
+                    <div class="detail-card">
+                        <h4>Description</h4>
+                        <p>Bus speed data generally has info for all buses (except with M14+), so we queried the bus speeds from the MTA’s datasets. We queried by selecting time stamps from 6/20/2025 12AM - 9/10/2025 11:45PM and 6/20/2024 12AM - 9/10/2024 11:45PM respectfully. Then setting Route ID to one of: [M15+, M14+, M23+, M34+, M101, M2, M42, M4], (routes in MCBD with ACE implemented as of currently). Then setting the hour of the day from 5-9 and 14-18 (rush hour) and setting the day of the weeks to be from Monday-Friday. </p>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <h4>WHAT WE SEE</h4>
+                        <p>The charts are seperated by route type (Limited, Local, SBS). We notice that alongside the decrease of violations, we also tend to see a slight increase in bus speed's. We also notice that every single bus route has seen a increase in average speed post congestion.</p>
+                    </div>
+                    <div class="speed-distribution">
+                        <img src="img/speed_distr.png" alt="Speed Distribution" class="speed-distribution-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Findings Section -->
+        <section id="findings" class="content-section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h2>KEY FINDINGS</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="findings-grid">
+                <div class="finding-card">
+                    <div class="finding-icon">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <h3>VIOLATIONS DECREASED</h3>
+                    <p>Violations decreased alongside congestion pricing in CBD</p>
+                    <div class="finding-glow"></div>
+                </div>
+                
+                <div class="finding-card">
+                    <div class="finding-icon">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <h3>BUS SPEEDS INCREASED</h3>
+                    <p>Bus speeds increased in CBD post-implementation</p>
+                    <div class="finding-glow"></div>
+                </div>
+                
+                <div class="finding-card">
+                    <div class="finding-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>RIDERSHIP INCREASED</h3>
+                    <p>Bus ridership increased significantly in CBD</p>
+                    <div class="finding-glow"></div>
+                </div>
+            </div>
+            
+            <div class="conclusion-panel">
+                <div class="conclusion-content">
+                    <h3>CONCLUSION</h3>
+                    <p>Congestion pricing has had a positive impact on NYC bus operations in the Manhattan Central Business District, resulting in fewer violations, increased speeds, and higher ridership.</p>
+                </div>
+                <div class="conclusion-visual">
+                    <div class="impact-meter">
+                        <div class="impact-bar positive" style="width: 85%"></div>
+                        <div class="impact-label">POSITIVE IMPACT</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="cyber-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>DATASETS USED</h4>
+                    <div class="dataset-links">
+                        <a href="#" class="dataset-link">ACE Violations</a>
+                        <a href="#" class="dataset-link">Bus Speeds 2025</a>
+                        <a href="#" class="dataset-link">Bus Speeds 2023-2024</a>
+                        <a href="#" class="dataset-link">Ridership 2020-2024</a>
+                        <a href="#" class="dataset-link">Ridership 2025</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>PROJECT TEAM</h4>
+                    <p><a href="https://github.com/jtega149" target="_blank" rel="noopener noreferrer">John Ortega</a></p>
+                    <p><a href="https://github.com/itsjustgiio" target="_blank" rel="noopener noreferrer">Giovanni Carrion</a></p>
+                    <p><a href="https://github.com/kevinye7" target="_blank" rel="noopener noreferrer">Kevin Ye</a></p>
+                    <p><a href="https://github.com/shreychow" target="_blank" rel="noopener noreferrer">Shreyosee Chowdhurry</a></p>
+                </div>
+
+                
+                <div class="footer-section">
+                    <h4>DATA LAB</h4>
+                    <p>Advanced Urban Analytics</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 NYC Data Lab. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
