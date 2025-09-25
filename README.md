@@ -3,7 +3,7 @@
 This project analyzes ACE (Automated Camera Enforcement) violations in Manhattan’s Central Business District to study the effects of congestion pricing on bus lane violations.
 
 ## Video covering our project:
-[![Video](https://drive.google.com/file/d/1oDLhGkeG7gduSQX-_OjWx6gQZGBjDKEt/view?usp=drive_link)]
+[Watch the video on Google Drive](https://drive.google.com/file/d/1oDLhGkeG7gduSQX-_OjWx6gQZGBjDKEt/view?usp=drive_link)
 
 ## Link to our github page:
 testing
