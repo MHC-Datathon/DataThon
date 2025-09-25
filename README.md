@@ -6,7 +6,7 @@ This project analyzes ACE (Automated Camera Enforcement) violations in Manhattan
 [Watch the video on Google Drive](https://drive.google.com/file/d/1oDLhGkeG7gduSQX-_OjWx6gQZGBjDKEt/view?usp=drive_link)
 
 ## Link to our github page:
-testing
+https://mhc-datathon.github.io/DataThon/
 
 ## How to Run the Jupyter Notebook Files
 
