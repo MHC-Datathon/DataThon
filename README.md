@@ -80,3 +80,12 @@ The main dataset for this project was queried and exported from the MTA’s ACE 
 - Set **Violation Status** to `"VIOLATION ISSUED"`
 
 > **Note:** For this project the CSV is **not included** in this repository due to size, but you can recreate it by querying the original dataset. Place the CSV in the `Datasets/` folder.
+
+## Contributors
+
+This project was developed by the following contributors:
+
+- [John Ortega](https://www.linkedin.com/in/john-ortega-b158072a9/)  
+- [Giovanni Carrion](https://www.linkedin.com/in/giovannicarrion/)  
+- [Kevin Ye](https://www.linkedin.com/in/kevinye7/)  
+- [Shreyosee Chowdhurry](https://www.linkedin.com/in/shreyosee25/)
